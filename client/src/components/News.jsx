@@ -7,8 +7,12 @@ const News = () => {
 		fetchData();
 	}, []);
 
+	const apikey = import.meta.env.VITE_NEWSDATA_API;
+
 	const url =
-		"https://newsdata.io/api/1/news?apikey=pub_219740e2ff244f676be3c1eab06c0eda93f27&country=id&image=1&size=4&category=health";
+		"https://newsdata.io/api/1/news?apikey=" +
+		apikey +
+		"&country=id&image=1&size=4&category=health";
 	// Function to fetch data
 	const fetchData = async () => {
 		try {
@@ -90,7 +94,9 @@ const News = () => {
 										<div className="px-6 py-4">
 											<h3 className="line-clamp-2 font-bold">{e.title}</h3>
 											<p className="line-clamp-2 pt-2">{e.description}</p>
-											<p className="text-blue-600 pt-2">{formatTanggal(e.pubDate)}</p>
+											<p className="text-blue-600 pt-2">
+												{formatTanggal(e.pubDate)}
+											</p>
 										</div>
 									</a>
 								</>
