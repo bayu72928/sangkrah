@@ -7,7 +7,8 @@ const News = () => {
 		fetchData();
 	}, []);
 
-	const apikey = import.meta.env.VITE_NEWSDATA_API;
+	const apikey =
+		import.meta.env.VITE_NEWSDATA_API ?? process.env.VITE_NEWSDATA_API;
 
 	const url =
 		"https://newsdata.io/api/1/news?apikey=" +
@@ -84,15 +85,19 @@ const News = () => {
 							{data.map((e) => (
 								<>
 									<a
-										className="min-w-64 block bg-white rounded-xl hover:bg-gray-200"
+										className="min-w-64 max-w-64 block bg-white rounded-xl hover:bg-gray-200"
 										href={e.link}
 										target="_blank"
 									>
 										<div className="rounded-xl overflow-clip">
-											<img src={e.image_url} alt="" />
+											<img
+												className="w-full object-cover h-52"
+												src={e.image_url}
+												alt=""
+											/>
 										</div>
 										<div className="px-6 py-4">
-											<h3 className="line-clamp-2 font-bold">{e.title}</h3>
+											<h3 className="line-clamp-3 font-bold">{e.title}</h3>
 											<p className="line-clamp-2 pt-2">{e.description}</p>
 											<p className="text-blue-600 pt-2">
 												{formatTanggal(e.pubDate)}

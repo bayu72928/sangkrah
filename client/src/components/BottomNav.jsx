@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
+
 const BottomNav = () => {
 	return (
 		<>
-    <div className="h-24"></div>
+			<div className="h-24"></div>
 			<div className="fixed bottom-0 left-0 z-50 w-full h-20 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600">
 				<div className="grid h-full max-w-lg grid-cols-5 mx-auto font-medium px-7">
-					<button
+					<Link
+						to="/"
 						type="button"
 						className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
 					>
@@ -20,8 +23,9 @@ const BottomNav = () => {
 						<span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-green-700 dark:group-hover:text-green-700">
 							Home
 						</span>
-					</button>
-					<button
+					</Link>
+					<Link
+						to="transaksi"
 						type="button"
 						className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
 					>
@@ -42,9 +46,10 @@ const BottomNav = () => {
 						<span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-green-700 dark:group-hover:text-green-700">
 							Transaksi
 						</span>
-					</button>
+					</Link>
 
-					<button
+					<Link
+						to="pickup"
 						type="button"
 						className="inline-flex flex-col items-center justify-center px-5  group"
 					>
@@ -73,8 +78,9 @@ const BottomNav = () => {
 						<span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-green-700 dark:group-hover:text-green-700 absolute bottom-0 mb-3">
 							Pickup
 						</span>
-					</button>
-					<button
+					</Link>
+					<Link
+						to="inbox"
 						type="button"
 						className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
 					>
@@ -91,8 +97,9 @@ const BottomNav = () => {
 						<span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-green-700 dark:group-hover:text-green-700">
 							Inbox
 						</span>
-					</button>
-					<button
+					</Link>
+					<Link
+						to="profile"
 						type="button"
 						className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
 					>
@@ -108,7 +115,7 @@ const BottomNav = () => {
 						<span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-green-700 dark:group-hover:text-green-700">
 							Profile
 						</span>
-					</button>
+					</Link>
 				</div>
 			</div>
 		</>
