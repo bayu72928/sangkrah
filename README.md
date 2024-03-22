@@ -1,5 +1,10 @@
 # # Sangkrah 🗑
 
+Cek demo website di sini
+
+> [Sangkrah website](https://sangkrah.vercel.app)
+
+
 ## Apa itu Sangkrah?
 
 Sangkrah adalah sebuah aplikasi yang dibuat untuk membantu mengelola sampah. Aplikasi ini akan memberikan informasi kepada pengguna mengenai tempat pembuangan sampah dan tempat daur ulang terdekat. 
