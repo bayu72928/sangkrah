@@ -1,6 +1,8 @@
 import Balance from "../components/Balance";
+import FAQ from "../components/FAQ";
 import Greeting from "../components/Greeting";
 import LastActivities from "../components/LastActivities";
+import News from "../components/News";
 import QuickMenu from "../components/QuickMenu";
 
 const Home = () => {
@@ -18,6 +20,8 @@ const Home = () => {
       <Balance />
       <QuickMenu />
       <LastActivities />
+      <News />
+      <FAQ />
     </div>
 		</>
 	);

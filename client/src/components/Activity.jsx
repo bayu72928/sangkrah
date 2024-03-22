@@ -1,7 +1,7 @@
 const Activity = ({ title, icon, date, type, money }) => {
 	return (
 		<div className="flex">
-			<img src={"./" + icon + ".svg"} alt="" />
+			<img className="pr-2" src={"./" + icon + ".svg"} alt="" />
 			<div className="w-full">
 				<p>{title}</p>
 				<p>{date}</p>
