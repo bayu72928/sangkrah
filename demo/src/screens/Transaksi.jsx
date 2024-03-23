@@ -129,15 +129,17 @@ const Transaksi = () => {
 					</svg>
 				</div>
 				<div className="grid grid-cols-1 gap-4">
-  {sortedTransactions.map((transactionGroup, index) => (
-    <div key={index} className="mb-4">
-      <div className="text-gray-500 mb-2">{transactionGroup[0].date}</div>
-      {transactionGroup.map((transaction) => (
-        <TransaksiHarian key={transaction.id} transaksi={transaction} />
-      ))}
-    </div>
-  ))}
-</div>
+					{sortedTransactions.map((transactionGroup, index) => (
+						<div key={index} className="mb-4">
+							<div className="text-gray-500 mb-2">
+								{transactionGroup[0].date}
+							</div>
+							{transactionGroup.map((transaction) => (
+								<TransaksiHarian key={transaction.id} transaksi={transaction} />
+							))}
+						</div>
+					))}
+				</div>
 				{isLoading ? (
 					<div className="text-center mt-4">Loading...</div>
 				) : noMoreTransactions ? (
@@ -192,7 +194,7 @@ const TransaksiHarian = ({ transaksi }) => {
 							transaksi.amount < 0 ? "text-red-500" : "text-green-500"
 						}`}
 					>
-						Rp {Math.abs(transaksi.amount)}
+						Rp{Math.abs(transaksi.amount)}
 					</div>
 				</div>
 				<div className="text-gray-500">{transaksi.description}</div>
