@@ -10,19 +10,20 @@ const Home = () => {
 		id: "1",
 		username: "Omar Faruukh",
 		avatar: "./avatar.png",
-    notification: 4
+		notification: 4,
 	};
 
 	return (
 		<>
-    <div className="*:my-8 last:my-0">
-			<Greeting profile={profile} />
-      <Balance />
-      <QuickMenu />
-      <LastActivities />
-      <News />
-      <FAQ />
-    </div>
+			<div className="*:my-8 last:my-0">
+				<Greeting profile={profile} />
+				<Balance />
+				<QuickMenu />
+				<LastActivities />
+				<News />
+				<FAQ />
+				<div className="h-24"></div>
+			</div>
 		</>
 	);
 };

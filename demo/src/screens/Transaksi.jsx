@@ -146,6 +146,7 @@ const Transaksi = () => {
 					<div className="text-center mt-4">Tidak ada transaksi lagi</div>
 				) : null}
 			</div>
+			<div className="h-24"></div>
 		</>
 	);
 };
