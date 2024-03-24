@@ -2,9 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-mapboxgl.accessToken =
-	import.meta.env.VITE_MAPBOX_KEY ?? process.env.VITE_MAPBOX_KEY;
-
 const Pickup = () => {
 	const mapContainer = useRef(null);
 	const map = useRef(null);
@@ -16,6 +13,8 @@ const Pickup = () => {
 	const [isError, setIsError] = useState(false);
 
 	useEffect(() => {
+		mapboxgl.accessToken =
+			import.meta.env.VITE_MAPBOX_KEY ?? process.env.VITE_MAPBOX_KEY;
 		// Check if geolocation is supported
 		if (!navigator.geolocation) {
 			setIsError(true);
