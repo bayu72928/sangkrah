@@ -23,6 +23,16 @@ const Pickup = () => {
 			return;
 		}
 
+		const geolocate = new mapboxgl.GeolocateControl({
+			positionOptions: {
+				enableHighAccuracy: true,
+			},
+			trackUserLocation: true,
+			showUserHeading: true,
+			trackUserLocation: true,
+			showUserHeading: true,
+		});
+
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
 				const { longitude, latitude } = position.coords;
@@ -35,43 +45,42 @@ const Pickup = () => {
 					center: [longitude, latitude],
 					zoom: zoom,
 				});
-
-				// Tambahkan sumber data GeoJSON untuk ikon lokasi pengguna
-				const geojson = {
-					type: "FeatureCollection",
-					features: [
-						{
-							type: "Feature",
-							geometry: {
-								type: "Point",
-								coordinates: [longitude, latitude],
-							},
-							properties: {
-								title: "Lokasi Anda",
-							},
-						},
-					],
-				};
+				map.current.addControl(geolocate);
 
 				map.current.on("load", () => {
 					setIsLoading(false);
+          geolocate.trigger();
 
 					// Tambahkan sumber data GeoJSON
-					map.current.addSource("locations", {
+					map.current.addSource("points", {
 						type: "geojson",
-						data: geojson,
+						data: {
+							type: "FeatureCollection",
+							features: [
+								{
+									type: "Feature",
+									properties: {},
+									geometry: {
+										type: "Point",
+										coordinates: [longitude, latitude],
+									},
+								},
+							],
+						},
 					});
 
 					// Tambahkan layer untuk menampilkan ikon lokasi pengguna
-					map.current.addLayer({
-						id: "locations",
-						type: "symbol",
-						source: "locations",
-						layout: {
-							"icon-image": "marker-15", // Nama sprite ikon
-							"icon-size": 1.5, // Ukuran ikon
+					/* map.current.addLayer({
+						id: "circle",
+						type: "circle",
+						source: "points",
+						paint: {
+							"circle-color": "#008DDA",
+							"circle-radius": 8,
+							"circle-stroke-width": 24,
+							"circle-stroke-color": "rgba(65, 201, 226, 0.4)",
 						},
-					});
+					}); */
 				});
 
 				map.current.on("error", (error) => {
