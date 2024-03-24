@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
-import mapboxgl from "mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 mapboxgl.accessToken =
 	import.meta.env.VITE_MAPBOX_KEY ?? process.env.VITE_MAPBOX_KEY;
@@ -7,49 +8,104 @@ mapboxgl.accessToken =
 const Pickup = () => {
 	const mapContainer = useRef(null);
 	const map = useRef(null);
-	const [lng, setLng] = useState(106.8451); // Longitude Jakarta
-	const [lat, setLat] = useState(-6.2088); // Latitude Jakarta
-	const [zoom, setZoom] = useState(9);
+	const [lng, setLng] = useState(null);
+	const [lat, setLat] = useState(null);
+	const [errorMessage, setErrorMessage] = useState("");
+	const [zoom, setZoom] = useState(14);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
 
 	useEffect(() => {
-		if (map.current) return; // initialize map only once
-
-		const timeoutId = setTimeout(() => {
+		// Check if geolocation is supported
+		if (!navigator.geolocation) {
 			setIsError(true);
-		}, 5000);
-
-		map.current = new mapboxgl.Map({
-			container: mapContainer.current,
-			style: "mapbox://styles/mapbox/streets-v12",
-			center: [lng, lat],
-			zoom: zoom,
-		});
-
-		map.current.on("load", () => {
 			setIsLoading(false);
-			clearTimeout(timeoutId);
+			setErrorMessage("Geolocation tidak didukung di browser ini");
+			return;
+		}
 
-			// Get user's location
-			navigator.geolocation.getCurrentPosition(
-				(position) => {
-					const { longitude, latitude } = position.coords;
-					setLng(longitude);
-					setLat(latitude);
-					map.current.flyTo({ center: [longitude, latitude], zoom: 14 });
-				},
-				(error) => {
-					console.error("Error getting location:", error);
+		navigator.geolocation.getCurrentPosition(
+			(position) => {
+				const { longitude, latitude } = position.coords;
+				setLng(longitude);
+				setLat(latitude);
+
+				map.current = new mapboxgl.Map({
+					container: mapContainer.current,
+					style: "mapbox://styles/mapbox/streets-v12",
+					center: [longitude, latitude],
+					zoom: zoom,
+				});
+
+				// Tambahkan sumber data GeoJSON untuk ikon lokasi pengguna
+				const geojson = {
+					type: "FeatureCollection",
+					features: [
+						{
+							type: "Feature",
+							geometry: {
+								type: "Point",
+								coordinates: [longitude, latitude],
+							},
+							properties: {
+								title: "Lokasi Anda",
+							},
+						},
+					],
+				};
+
+				map.current.on("load", () => {
+					setIsLoading(false);
+
+					// Tambahkan sumber data GeoJSON
+					map.current.addSource("locations", {
+						type: "geojson",
+						data: geojson,
+					});
+
+					// Tambahkan layer untuk menampilkan ikon lokasi pengguna
+					map.current.addLayer({
+						id: "locations",
+						type: "symbol",
+						source: "locations",
+						layout: {
+							"icon-image": "marker-15", // Nama sprite ikon
+							"icon-size": 1.5, // Ukuran ikon
+						},
+					});
+				});
+
+				map.current.on("error", (error) => {
+					setIsError(true);
+					console.error("Map error:", error);
+				});
+			},
+			(error) => {
+				setIsError(true);
+				setIsLoading(false);
+				switch (error.code) {
+					case 1:
+						// Permissions denied
+						setErrorMessage("Mohon berikan izin lokasi");
+						break;
+
+					case 2:
+						// Position unavailable
+						setErrorMessage("Lokasi tidak tersedia");
+						break;
+
+					case 3:
+						// Timeout
+						setErrorMessage("Pengambilan lokasi melebihi batas waktu");
+						break;
+
+					default:
+						setErrorMessage("Terjadi kesalahan saat mendapatkan lokasi");
 				}
-			);
-		});
-
-		map.current.on("error", (error) => {
-			setIsError(true);
-			console.error("Map error:", error);
-		});
-	}, []);
+				console.error("Error getting location:", error);
+			}
+		);
+	}, [zoom]);
 
 	return (
 		<div className="w-full h-screen overflow-hidden relative">
@@ -60,7 +116,7 @@ const Pickup = () => {
 			)}
 			{isError && (
 				<div className="absolute inset-0 flex items-center justify-center z-10 text-gray-600">
-					<p>Gagal memuat peta. Silakan coba lagi nanti.</p>
+					{errorMessage ?? "Terjadi kesalahan saat menampilkan map"}
 				</div>
 			)}
 			<div ref={mapContainer} className="w-full h-full" />
