@@ -27,10 +27,8 @@ const Pickup = () => {
 			positionOptions: {
 				enableHighAccuracy: true,
 			},
-			trackUserLocation: true,
 			showUserHeading: true,
 			trackUserLocation: true,
-			showUserHeading: true,
 		});
 
 		navigator.geolocation.getCurrentPosition(
@@ -77,7 +75,7 @@ const Pickup = () => {
 						paint: {
 							"circle-color": "#008DDA",
 							"circle-radius": 8,
-							"circle-stroke-width": 24,
+							"circle-strokeWidth": 24,
 							"circle-stroke-color": "rgba(65, 201, 226, 0.4)",
 						},
 					}); */
