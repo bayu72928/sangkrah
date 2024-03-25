@@ -37,7 +37,7 @@ const Inbox = () => {
 
 	return (
 		<>
-			<div className="px-9 py-4">
+			<div className="px-6 py-4">
 				<div className="flex justify-between items-center">
 					<h2 className="font-bold text-2xl">Pesan Masuk</h2>
 					<svg
@@ -62,7 +62,7 @@ const Inbox = () => {
 						key={message.id}
 						className={`py-4 ${!message.read && "bg-green-200 bg-opacity-70"}`}
 					>
-						<div className="px-10">
+						<div className="px-6">
 							<div className="flex items-center justify-between">
 								<h3 className={`text-lg ${!message.read && "font-bold line-clamp-1"}`}>
 									{message.title}

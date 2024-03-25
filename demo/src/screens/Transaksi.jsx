@@ -101,7 +101,7 @@ const Transaksi = () => {
 
 	return (
 		<>
-			<div className="bg-[#3A844F] px-9 pt-8 pb-24 text-white flex justify-between items-center">
+			<div className="bg-[#3A844F] px-6 pt-8 pb-24 text-white flex justify-between items-center">
 				<div>
 					<div className="font-light">Saldo Kamu</div>
 					<div className="text-3xl font-semibold">Rp128,887</div>
@@ -110,7 +110,7 @@ const Transaksi = () => {
 					<img className="w-14 h-14 rounded-full" src="avatar.png" alt="" />
 				</div>
 			</div>
-			<div className="px-9 pt-4 bg-gray-100 -mt-8 rounded-t-3xl">
+			<div className="px-6 pt-4 bg-gray-100 -mt-8 rounded-t-3xl">
 				<div className="flex justify-between items-center mb-4">
 					<h2 className="font-bold text-2xl">Transaksi Saya</h2>
 					<svg

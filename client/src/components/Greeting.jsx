@@ -1,7 +1,7 @@
 const Greeting = ({ profile }) => {
 	return (
 		<>
-			<div className="flex justify-between mx-9">
+			<div className="flex justify-between mx-6">
 				<div className="flex gap-3">
 					<div>
 						<img src={profile.avatar} alt="" srcSet="" />
